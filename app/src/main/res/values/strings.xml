@@ -1,8 +1,5 @@
 <resources>
-    <string name="app_name">Master/Detail Kotlin Sample</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="rating">Rating:</string>
+    <string name="app_name">Master/Detail Duo Sample</string>
     <string name="details">Details:</string>
     <string name="title">Title:</string>
     <string name="item_image">Item image</string>
