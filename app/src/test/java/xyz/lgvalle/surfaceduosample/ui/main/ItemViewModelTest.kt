@@ -8,4 +8,9 @@ class ItemViewModelTest {
     internal fun `a failing test`() {
         assert(false)
     }
+
+    @Test
+    internal fun `another failing test`() {
+        assert(false)
+    }
 }
