@@ -52,3 +52,7 @@ jobs:
       name: 'Static analysis check'	
       script:	
         - ./gradlew lint
+    - stage: 'Test'
+      name: 'Unit tests'
+      script:
+        - ./gradlew test    
