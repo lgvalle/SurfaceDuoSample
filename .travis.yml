@@ -1,24 +1,27 @@
 language: android
-# you MUST mention trusty https://docs.travis-ci.com/user/languages/android/
 dist: trusty
-
 android:
   components:
-    - tools
-    - platform-tools
+    # Uncomment the lines below if you want to
+    # use the latest revision of Android SDK Tools
+    # - tools
+    # - platform-tools
+
+    # The BuildTools version used by your project
     - build-tools-26.0.2
+
+    # The SDK version used to compile your project
     - android-26
+
+    # Additional components
     - extra-google-google_play_services
     - extra-google-m2repository
-    - extra-android-m2repository # for design library
+    - extra-android-m2repository
 
-before_install:
-    - yes | sdkmanager "platforms;android-26"    
-
-before_script:
-    - echo $TRAVIS_BRANCH
-    - echo $TRAVIS_TAG
+    # Specify at least one system image,
+    # if you need to run emulator(s) during your tests
+    - sys-img-x86-android-26
+    - sys-img-armeabi-v7a-android-17
 
 script:
     - ./gradlew lint
-    - ./gradlew test
