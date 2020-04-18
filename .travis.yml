@@ -39,10 +39,11 @@ cache:
     - $HOME/.m2/repository
     - $HOME/.sonar/cache
 
-before_install:
-  - rvm install 2.6.3
-  - bundle install
-  - fastlane install_plugins
+#before_install:
+#  - rvm install 2.6.3
+#  - bundle install
+#  - fastlane install_plugins
 
 script:
-  - bundle exec fastlane test
+  - ./gradlew lint
+  - ./gradlew test
