@@ -39,17 +39,9 @@ cache:
     - $HOME/.m2/repository
     - $HOME/.sonar/cache
 
-script:	
-    - ./gradlew clean	
-
-stages:	
-    - 'Lint'	
-    - 'Test'	
-
 jobs:	
   include:	
     - script:	./gradlew lint
       name: 'Static analysis check'	
     - script: ./gradlew test    
       name: 'Unit tests'
-      
