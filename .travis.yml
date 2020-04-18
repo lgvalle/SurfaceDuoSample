@@ -45,4 +45,4 @@ before_install:
   - fastlane install_plugins
 
 script:
-  - bundle exec fastlane run_ci
+  - bundle exec fastlane test
