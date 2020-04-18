@@ -4,18 +4,18 @@ dist: trusty
 env:
  global:
 # These parameters should match the parameters for build tools and sdk versions in the gradle file
- - ANDROID_BUILD_TOOLS=28.0.3 # should match gradle
- - ANDROID_API=28 # api is same as gradle file
+ - ANDROID_BUILD_TOOLS=29.0.3 # should match gradle
+ - ANDROID_API=29 # api is same as gradle file
  android:
   components:
     - tools
-    - platform-tools-$ANDROID_BUILD_TOOLS
-    - build-tools-$ANDROID_BUILD_TOOLS
-    - android-$ANDROID_API
+    - platform-tools
+    - build-tools-29.0.3
+    - android-29
+    - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository # for design library
     - addon-google_apis-google-19 # google play services
-    - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API
 
   licenses:
     - android-sdk-preview-license-.+
