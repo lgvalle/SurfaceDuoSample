@@ -1,26 +1,16 @@
 language: android
 # you MUST mention trusty https://docs.travis-ci.com/user/languages/android/
 dist: trusty
-env:
- global:
-# These parameters should match the parameters for build tools and sdk versions in the gradle file
- - ANDROID_BUILD_TOOLS=29.0.3 # should match gradle
- - ANDROID_API=29 # api is same as gradle file
- android:
+
+android:
   components:
-    - tools
-    - platform-tools
-    - build-tools-29.0.3
-    - android-29
+    #- tools
+    #- platform-tools
+    - build-tools-26.0.2
+    - android-26
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository # for design library
-    - addon-google_apis-google-19 # google play services
-
-  licenses:
-    - android-sdk-preview-license-.+
-    - android-sdk-license-.+
-    - google-gdk-license-.+
 
 before_script:
     - echo $TRAVIS_BRANCH
