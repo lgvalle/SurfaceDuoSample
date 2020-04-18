@@ -19,22 +19,7 @@ android:
 before_script:
     - echo $TRAVIS_BRANCH
     - echo $TRAVIS_TAG
-    
+
 script:
-    - ./gradlew clean
-
-stages:
-    - 'Lint'
-    - 'Test'
-        
-jobs:
-  include:
-    - stage: 'Lint'
-      name: 'Static analysis check'
-      script:
-        - ./gradlew lint
-
-    - stage: 'Test'
-      name: 'Unit test'
-      script:
-        - ./gradlew test
+    - ./gradlew lint
+    - ./gradlew test
