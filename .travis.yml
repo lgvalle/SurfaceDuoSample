@@ -48,11 +48,8 @@ stages:
 
 jobs:	
   include:	
-    - stage: 'Lint'	
+    - script:	./gradlew lint
       name: 'Static analysis check'	
-      script:	
-        - ./gradlew lint
-    - stage: 'Test'
+    - script: ./gradlew test    
       name: 'Unit tests'
-      script:
-        - ./gradlew test    
+      
