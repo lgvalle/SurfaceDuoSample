@@ -11,10 +11,10 @@ android:
     - platform-tools
 
     # Build tools
-    - build-tools-28.0.3
+    - build-tools-29.0.3
 
     # SDK version
-    - android-28
+    - android-29
 
     # Additional Google components
     - extra-google-google_play_services
