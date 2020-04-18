@@ -19,6 +19,9 @@ android:
 before_script:
     - echo $TRAVIS_BRANCH
     - echo $TRAVIS_TAG
+    
+script:
+    - ./gradlew clean
 
 stages:
     - 'Lint'
