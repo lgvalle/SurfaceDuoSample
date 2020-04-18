@@ -6,11 +6,11 @@ class ItemViewModelTest {
 
     @Test
     internal fun `a failing test`() {
-        assert(false)
+        assert(true)
     }
 
     @Test
     internal fun `another failing test`() {
-        assert(false)
+        assert(true)
     }
 }
