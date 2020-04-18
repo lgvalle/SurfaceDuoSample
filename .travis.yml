@@ -5,24 +5,18 @@ env:
  global:
 # These parameters should match the parameters for build tools and sdk versions in the gradle file
  - ANDROID_BUILD_TOOLS=28.0.3 # should match gradle
- - ADB_INSTALL_TIMEOUT=5 # minutes
  - ANDROID_API=28 # api is same as gradle file
- matrix:
- - EMULATOR_API=21
- - EMULATOR_API=22
-android:
+ android:
   components:
     - tools
     - platform-tools-$ANDROID_BUILD_TOOLS
     - build-tools-$ANDROID_BUILD_TOOLS
     - android-$ANDROID_API
-    - android-$EMULATOR_API
     - extra-google-m2repository
     - extra-android-m2repository # for design library
     - addon-google_apis-google-19 # google play services
     - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API
-    - sys-img-armeabi-v7a-addon-google_apis-google-$EMULATOR_API
-    - sys-img-armeabi-v7a-android-$EMULATOR_API
+
   licenses:
     - android-sdk-preview-license-.+
     - android-sdk-license-.+
