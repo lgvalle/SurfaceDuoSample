@@ -39,11 +39,16 @@ cache:
     - $HOME/.m2/repository
     - $HOME/.sonar/cache
 
-#before_install:
-#  - rvm install 2.6.3
-#  - bundle install
-#  - fastlane install_plugins
+script:	
+    - ./gradlew clean	
 
-script:
-  - ./gradlew lint
-  - ./gradlew test
+stages:	
+    - 'Lint'	
+    - 'Test'	
+
+jobs:	
+  include:	
+    - stage: 'Lint'	
+      name: 'Static analysis check'	
+      script:	
+        - ./gradlew lint
