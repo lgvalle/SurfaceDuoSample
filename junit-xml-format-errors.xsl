@@ -27,10 +27,20 @@ Testcase: </xsl:text>
     <xsl:text> took </xsl:text>
     <xsl:value-of select="@time" />
     <xsl:choose>
-      <xsl:when test="failure"><xsl:text> FAILURE </xsl:text><xsl:apply-templates select="failure"/></xsl:when>
-      <xsl:when test="error"><xsl:text> ERROR </xsl:text><xsl:apply-templates select="error"/></xsl:when>
+      <xsl:when test="failure"><xsl:text> FAILURE </xsl:text></xsl:when>
+      <xsl:when test="error"><xsl:text> ERROR </xsl:text></xsl:when>
       <xsl:otherwise><xsl:text> SUCCESS</xsl:text></xsl:otherwise>
     </xsl:choose>    
+  </xsl:template>
+
+  <xsl:template match="error | failure">
+    <xsl:value-of select="@message" />
+    <xsl:if test="@type != @message">
+      <xsl:text> </xsl:text><xsl:value-of select="@type" />
+    </xsl:if>
+    <xsl:text>
+</xsl:text>
+    <xsl:value-of select="." />
   </xsl:template>
 
   <xsl:template match="system-out">
