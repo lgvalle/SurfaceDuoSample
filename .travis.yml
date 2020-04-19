@@ -51,4 +51,4 @@ jobs:
   fast_finish: true
   include:
     - script: echo "Primer script"	
-    - bundle exec fastlane testing
+    - script: bundle exec fastlane testing
