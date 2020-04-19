@@ -64,8 +64,8 @@ stages:
 jobs:	
   fast_finish: true
   include:
-    - name: run_ci_pull_request_check
+    - stage: run_ci_pull_request_check
       script: ./gradlew lint
       script: ./gradlew test
-    - name: run_ci_pull_request_assemble
+    - stage: run_ci_pull_request_assemble
       script: ./gradlew assembleDebug
