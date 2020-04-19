@@ -47,25 +47,17 @@ before_install:
   - bundle install
   - fastlane install_plugins
 
-stages:
-  - name: run_ci_pull_request_check
-    if: type = pull_request
-  - name: run_ci_pull_request_assemble
-    if: type = pull_request    
-  - name: run_ci_develop
-    if: branch = /^develop$/
-  - name: run_ci_beta
-    if: branch = /^beta.*/
-  - name: run_ci_release
-    if: branch = /^release.*/
-  - name: run_ci_beta
-    if: branch = /^master.*/        
-
 jobs:	
   fast_finish: true
   include:
     - stage: run_ci_pull_request_check
-      script: ./gradlew lint
-      script: ./gradlew test
+      if: type = pull_request
+      script: 
+        - ./gradlew lint
+        - ./gradlew test
     - stage: run_ci_pull_request_assemble
+      if: type = pull_request
       script: ./gradlew assembleDebug
+    - stage: run_ci_fastlane
+      script: bundle exec fastlane testing  
+      if: type (NOT type IN (pull_request))
