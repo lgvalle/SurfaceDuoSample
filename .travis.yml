@@ -45,4 +45,6 @@ jobs:
       name: 'Static analysis check'	
     - script: ./gradlew test    
       name: 'Unit tests'
-      after_failure: cat app/build/reports/tests/testDebugUnitTest/index.html
+      after_failure: 
+        - pandoc app/build/reports/tests/testDebugUnitTest/index.html -t plain >> foo.txt
+        - cat foo.txt
