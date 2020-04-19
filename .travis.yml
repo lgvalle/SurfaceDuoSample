@@ -5,7 +5,7 @@ git:
   depth: false
 
 before_install:
-  - sudo apt-get -y install xsltproc
+  - sudo apt-get -y install xsltproc xml-twig-tools
 
 android:
   components:
