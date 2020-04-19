@@ -33,16 +33,6 @@ Testcase: </xsl:text>
     </xsl:choose>    
   </xsl:template>
 
-  <xsl:template match="error | failure">
-    <xsl:value-of select="@message" />
-    <xsl:if test="@type != @message">
-      <xsl:text> </xsl:text><xsl:value-of select="@type" />
-    </xsl:if>
-    <xsl:text>
-</xsl:text>
-    <xsl:value-of select="." />
-  </xsl:template>
-
   <xsl:template match="system-out">
     <xsl:text>
 ------ Standard output ------
