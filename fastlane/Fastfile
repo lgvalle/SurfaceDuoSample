@@ -17,7 +17,7 @@ default_platform(:android)
 
 platform :android do
   desc "Runs all the tests"
-  lane :test do
+  lane :testing do
     puts "Luis > Running tests"
     begin
       gradle(task: 'test')

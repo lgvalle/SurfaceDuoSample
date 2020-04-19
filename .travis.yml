@@ -49,5 +49,6 @@ before_install:
 
 jobs:	
   fast_finish: true
-  include:	
-    - bundle exec fastlane test
+  include:
+    - script: echo "Primer script"	
+    - bundle exec fastlane testing
