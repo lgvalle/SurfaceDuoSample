@@ -4,6 +4,9 @@ language: android
 git:
   depth: false
 
+before_install:
+  - sudo apt-get -y install xsltproc
+
 android:
   components:
     # Update Android SDK tools

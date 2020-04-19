@@ -1,11 +1,6 @@
 #!/bin/bash
-IFS='
-'
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-if [ "$TRAVIS" = "true" ]; then
-	echo 'Installing xsltproc....'
-	sudo apt-get install -qq -y --force-yes  xsltproc > /dev/null
-fi
+
 ROOTDIR="$1"
 if [ -z "$ROOTDIR" ]; then
 	ROOTDIR="."
