@@ -45,11 +45,10 @@ cache:
 jobs:	
   fast_finish: true
   include:
-    - stage: run_ci_pull_request_check
+    - script: ./gradlew test
       if: type = pull_request
-      script: 
-        - ./gradlew lint
-        - ./gradlew test
+    - script: ./gradlew lint
+      if: type = pull_request
     - stage: run_ci_pull_request_assemble
       if: type = pull_request
       script: ./gradlew assembleDebug
