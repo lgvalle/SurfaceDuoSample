@@ -41,8 +41,12 @@ android {
 
             // remove standard output/error logging from --info builds
             // by assigning only 'failed' and 'skipped' events
-            info.events = ["failed", "skipped"]
+            info.events = ["failed", "skipped"]   
         }
+        reports {
+            junitXml.enabled = true
+            html.enabled = false
+        }  
     }
 
 }

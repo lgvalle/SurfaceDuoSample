@@ -3,15 +3,15 @@ IFS='
 '
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 if [ "$TRAVIS" = "true" ]; then
-	echo 'Installing xml-twig-tools and xsltproc....'
-	sudo apt-get install -qq -y --force-yes xml-twig-tools xsltproc > /dev/null
+	echo 'Installing xsltproc....'
+	sudo apt-get install -qq -y --force-yes  xsltproc > /dev/null
 fi
 ROOTDIR="$1"
 if [ -z "$ROOTDIR" ]; then
 	ROOTDIR="."
 fi
 echo 'Formatting results...'
-FILES=$(find "$ROOTDIR" -path '*/build/test-results/*.xml' | xargs --no-run-if-empty xml_grep --files --cond 'testsuite[@failures > 0 or @errors > 0]')
+FILES=$(find "$ROOTDIR" -path '*/build/test-results/*.xml')
 if [ -n "$FILES" ]; then
 	for file in $FILES; do
 		echo "Formatting $file"
