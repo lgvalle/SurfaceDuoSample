@@ -42,12 +42,12 @@ cache:
     - $HOME/.m2/repository
     - $HOME/.sonar/cache
 
+before_install:
+  - rvm install 2.6.3
+  - bundle install
+  - fastlane install_plugins
+
 jobs:	
   fast_finish: true
   include:	
-    - script:	./gradlew lint
-      name: 'Static analysis check'	
-    - script: ./gradlew test    
-      name: 'Unit tests'
-      after_failure: 
-        - sh ./junit-errors-to-stdout.sh
+    - bundle exec fastlane test

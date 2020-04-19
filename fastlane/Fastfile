@@ -18,8 +18,17 @@ default_platform(:android)
 platform :android do
   desc "Runs all the tests"
   lane :test do
-    gradle(task: "test")
+    puts "Luis > Running tests"
+    begin
+      gradle(task: 'test')
+    rescue => ex
+      puts "Luis -> rescue"
+      sh(./junit-errors-to-stdout.sh)
+      raise ex
+    end
   end
+
+    
 
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
