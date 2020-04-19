@@ -47,8 +47,15 @@ before_install:
   - bundle install
   - fastlane install_plugins
 
+stages:
+  - check
+  - assemble  
+
 jobs:	
   fast_finish: true
   include:
-    - script: echo "Primer script"	
-    - script: bundle exec fastlane testing
+    - name: check
+      script: ./gradlew lint
+      script: ./gradlew test
+    - name: assemble
+      script: ./gradlew assembleDebug
