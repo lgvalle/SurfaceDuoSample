@@ -23,7 +23,7 @@ platform :android do
       gradle(task: 'test')
     rescue => ex
       puts "Luis -> rescue"
-      sh(./junit-errors-to-stdout.sh)
+      sh ("sh ../junit-errors-to-stdout.sh")
       raise ex
     end
   end
