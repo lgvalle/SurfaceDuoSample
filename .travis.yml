@@ -40,6 +40,7 @@ cache:
     - $HOME/.sonar/cache
 
 jobs:	
+  fast_finish: true
   include:	
     - script:	./gradlew lint
       name: 'Static analysis check'	
