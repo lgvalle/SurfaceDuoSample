@@ -42,6 +42,10 @@ cache:
     - $HOME/.m2/repository
     - $HOME/.sonar/cache
 
+stages:
+  - run_ci_pull_request_assemble
+  - run_ci_fastlane
+
 jobs:	
   fast_finish: true
   include:
@@ -49,10 +53,11 @@ jobs:
       if: type = pull_request
     - script: ./gradlew lint
       if: type = pull_request
-    - stage: run_ci_pull_request_assemble
+    - name: run_ci_pull_request_assemble
       if: type = pull_request
       script: ./gradlew assembleDebug
-    - stage: run_ci_fastlane
+    - name: run_ci_fastlane
+      if: type (NOT type IN (pull_request))
       before_install:
         - rvm install 2.6.3
         - bundle install
