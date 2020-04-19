@@ -57,7 +57,7 @@ jobs:
       if: type = pull_request
       script: ./gradlew assembleDebug
     - name: run_ci_fastlane
-      if: type (NOT type IN (pull_request))
+      if: (NOT type IN (pull_request))
       before_install:
         - rvm install 2.6.3
         - bundle install
