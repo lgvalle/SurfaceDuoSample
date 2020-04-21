@@ -7,11 +7,10 @@ git:
 before_install:
   - sudo apt-get -y install xsltproc xml-twig-tools
 
-SDKTOOLS: https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip  
 install:
   # Download and unzip the Android SDK tools (if not already there thanks to the cache mechanism)
   # Latest version available here: https://developer.android.com/studio/#command-tools
-  - if test ! -e $HOME/android-sdk-dl/sdk-tools.zip ; then curl $SDKTOOLS > $HOME/android-sdk-dl/sdk-tools.zip ; fi
+  - if test ! -e $HOME/android-sdk-dl/sdk-tools.zip ; then curl https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip > $HOME/android-sdk-dl/sdk-tools.zip ; fi
   - unzip -qq -n $HOME/android-sdk-dl/sdk-tools.zip -d $HOME/android-sdk
 
   # Install or update Android SDK components (will not do anything if already up to date thanks to the cache mechanism)
