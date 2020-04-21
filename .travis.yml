@@ -7,26 +7,17 @@ git:
 before_install:
   - sudo apt-get -y install xsltproc xml-twig-tools
 
-android:
-  components:
-    # Update Android SDK tools
-    - tools
-    - platform-tools
+SDKTOOLS: https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip  
+install:
+  # Download and unzip the Android SDK tools (if not already there thanks to the cache mechanism)
+  # Latest version available here: https://developer.android.com/studio/#command-tools
+  - if test ! -e $HOME/android-sdk-dl/sdk-tools.zip ; then curl $SDKTOOLS > $HOME/android-sdk-dl/sdk-tools.zip ; fi
+  - unzip -qq -n $HOME/android-sdk-dl/sdk-tools.zip -d $HOME/android-sdk
 
-    # Build tools
-    - build-tools-29.0.3
-
-    # SDK version
-    - android-29
-
-    # Additional Google components
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-  licenses:
-    - android-sdk-preview-license-.+
-    - android-sdk-license-.+
-    - google-gdk-license-.+
+  # Install or update Android SDK components (will not do anything if already up to date thanks to the cache mechanism)
+  - echo y | $HOME/android-sdk/tools/bin/sdkmanager 'platform-tools' > /dev/null
+  - echo y | $HOME/android-sdk/tools/bin/sdkmanager 'build-tools;28.0.3' > /dev/null
+  - echo y | $HOME/android-sdk/tools/bin/sdkmanager 'platforms;android-28' > /dev/null  
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -35,13 +26,19 @@ before_cache:
 cache:
   bundler: true
   directories:
+    # Android SDK
+    - $HOME/android-sdk-dl
+    - $HOME/android-sdk
+
+    # Gradle dependencies
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
-    - .gradle
-    - $HOME/.android/build-cache
-    - $HOME/.m2/repository
-    - $HOME/.sonar/cache
 
+    # Android build cache (see http://tools.android.com/tech-docs/build-cache)
+    - $HOME/.android/build-cache
+
+env:
+  - ANDROID_HOME=$HOME/android-sdk
 jobs:	
   fast_finish: true
   include:
