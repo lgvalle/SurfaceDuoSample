@@ -1,32 +1,41 @@
-dist: trusty
-language: android
+language: minimal
+os: linux
+dist: xenial
 
 git:
   depth: false
 
+env:
+  global:
+  # for updates check developer.android.com/studio#downloads (current 26.1.1)
+  - ANDROID_SDK_TOOLS=commandlinetools-linux-6200805_latest.zip
+
 before_install:
-  - sudo apt-get -y install xsltproc xml-twig-tools
+  # set JAVA_HOME path
+  - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+  # download and unzip Android SDK command line tools
+  - wget -nv https://dl.google.com/android/repository/$ANDROID_SDK_TOOLS
+  - unzip -q -n $ANDROID_SDK_TOOLS -d $HOME/sdk
+  # set SDK tools path variable and ANDROID_HOME
+  - export PATH=$PATH:$HOME/sdk/tools/bin
+  - export ANDROID_HOME=$HOME/sdk
+  # create empty cfg file to prevent sdkmanager warning message
+  - mkdir -p $HOME/.android && touch $HOME/.android/repositories.cfg
 
-android:
-  components:
-    # Update Android SDK tools
-    - tools
-    - platform-tools
-
-    # Build tools
-    - build-tools-29.0.3
-
-    # SDK version
-    - android-29
-
-    # Additional Google components
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-  licenses:
-    - android-sdk-preview-license-.+
-    - android-sdk-license-.+
-    - google-gdk-license-.+
+install:
+  # accept licenses for all available packages that have not already been accepted
+  #- yes | sdkmanager --licenses >/dev/null
+  #- "./gradlew assemble"   
+  
+before_script:
+  # set executable flag for gradle wrapper
+  - chmod +x gradlew
+  # create dir for gradle settings
+  - mkdir -p $HOME/.gradle
+  # disable gradle daemon for current user
+  - echo "org.gradle.daemon=false" >> $HOME/.gradle/gradle.properties
+  # set gradle log format to plain
+  - echo "org.gradle.console=plain" >> $HOME/.gradle/gradle.properties  
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -41,22 +50,36 @@ cache:
     - $HOME/.android/build-cache
     - $HOME/.m2/repository
     - $HOME/.sonar/cache
+    - $HOME/sdk
+
+common_tasks:    
+  - phase: &build_dependencies
+      - rvm install 2.6.3
+      - bundle install
+      - fastlane install_plugins 
 
 jobs:	
   fast_finish: true
   include:
-    - script: ./gradlew test
+    - stage: precache
+      script: true
+      install:
+        - yes | "${ANDROID_HOME}/tools/bin/sdkmanager" --sdk_root=${ANDROID_HOME} "platforms;android-29"
+        - yes | "${ANDROID_HOME}/tools/bin/sdkmanager" --sdk_root=${ANDROID_HOME} "build-tools;29.0.3"
+      if: type = pull_request  
+
+    - stage: check
+      script: ./gradlew test lint
+      install: skip
       if: type = pull_request
-    - script: ./gradlew lint
-      if: type = pull_request
+
     - stage: run_ci_pull_request_assemble
       if: type = pull_request
+      install: skip
       script: ./gradlew assembleDebug
+
     - stage: run_ci_fastlane
       if: (NOT type IN (pull_request))
-      before_install:
-        - rvm install 2.6.3
-        - bundle install
-        - fastlane install_plugins
+      before_install: *build_dependencies
       script: bundle exec fastlane testing  
       
