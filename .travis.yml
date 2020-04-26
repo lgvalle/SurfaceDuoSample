@@ -21,8 +21,6 @@ before_install:
   - export ANDROID_HOME=$HOME/sdk
   # create empty cfg file to prevent sdkmanager warning message
   - mkdir -p $HOME/.android && touch $HOME/.android/repositories.cfg
-  - yes | "${ANDROID_HOME}/tools/bin/sdkmanager" --sdk_root=${ANDROID_HOME} "platforms;android-29" > /dev/null
-  - yes | "${ANDROID_HOME}/tools/bin/sdkmanager" --sdk_root=${ANDROID_HOME} "build-tools;29.0.3" > /dev/null
 
 install:
   # accept licenses for all available packages that have not already been accepted
@@ -62,7 +60,15 @@ common_tasks:
 jobs:	
   fast_finish: true
   include:
-    - script: ./gradlew test lint
+    - stage: precache
+      script: true
+      install:
+        - yes | "${ANDROID_HOME}/tools/bin/sdkmanager" --sdk_root=${ANDROID_HOME} "platforms;android-29" > /dev/null
+        - yes | "${ANDROID_HOME}/tools/bin/sdkmanager" --sdk_root=${ANDROID_HOME} "build-tools;29.0.3" > /dev/null
+      if: type = pull_request  
+
+    - stage: check
+      script: ./gradlew test lint
       if: type = pull_request
 
     - stage: run_ci_pull_request_assemble
