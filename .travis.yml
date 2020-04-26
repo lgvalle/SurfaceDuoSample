@@ -50,6 +50,7 @@ cache:
     - $HOME/.android/build-cache
     - $HOME/.m2/repository
     - $HOME/.sonar/cache
+    - $HOME/sdk
 
 common_tasks:    
   - phase: &build_dependencies
