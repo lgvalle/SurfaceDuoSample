@@ -63,8 +63,8 @@ jobs:
     - stage: precache
       script: true
       install:
-        - yes | "${ANDROID_HOME}/tools/bin/sdkmanager" --sdk_root=${ANDROID_HOME} "platforms;android-29" > /dev/null
-        - yes | "${ANDROID_HOME}/tools/bin/sdkmanager" --sdk_root=${ANDROID_HOME} "build-tools;29.0.3" > /dev/null
+        - yes | "${ANDROID_HOME}/tools/bin/sdkmanager" --sdk_root=${ANDROID_HOME} "platforms;android-29"
+        - yes | "${ANDROID_HOME}/tools/bin/sdkmanager" --sdk_root=${ANDROID_HOME} "build-tools;29.0.3"
       if: type = pull_request  
 
     - stage: check
