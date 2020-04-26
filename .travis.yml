@@ -70,10 +70,12 @@ jobs:
 
     - stage: check
       script: ./gradlew test lint
+      install: skip
       if: type = pull_request
 
     - stage: run_ci_pull_request_assemble
       if: type = pull_request
+      install: skip
       script: ./gradlew assembleDebug
 
     - stage: run_ci_fastlane
