@@ -15,7 +15,7 @@ before_install:
   - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
   # download and unzip Android SDK command line tools
   - wget -nv https://dl.google.com/android/repository/$ANDROID_SDK_TOOLS
-  - no | unzip -q $ANDROID_SDK_TOOLS -d $HOME/sdk
+  - unzip -q -n $ANDROID_SDK_TOOLS -d $HOME/sdk
   # set SDK tools path variable and ANDROID_HOME
   - export PATH=$PATH:$HOME/sdk/tools/bin
   - export ANDROID_HOME=$HOME/sdk
