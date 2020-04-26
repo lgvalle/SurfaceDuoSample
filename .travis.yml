@@ -54,19 +54,24 @@ cache:
     - $HOME/.m2/repository
     - $HOME/.sonar/cache
 
+common_tasks:    
+  - phase: &build_dependencies
+      - rvm install 2.6.3
+      - bundle install
+      - fastlane install_plugins 
+
 jobs:	
   fast_finish: true
   include:
     - script: ./gradlew test lint
       if: type = pull_request
+
     - stage: run_ci_pull_request_assemble
       if: type = pull_request
       script: ./gradlew assembleDebug
+
     - stage: run_ci_fastlane
       if: (NOT type IN (pull_request))
-      before_install:
-        - rvm install 2.6.3
-        - bundle install
-        - fastlane install_plugins
+      before_install: *build_dependencies
       script: bundle exec fastlane testing  
       
