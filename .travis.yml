@@ -26,6 +26,7 @@ before_install:
 install:
   # accept licenses for all available packages that have not already been accepted
   #- yes | sdkmanager --licenses >/dev/null
+  - mkdir -p $HOME/.android && touch $HOME/.android/repositories.cfg
   - "${ANDROID_HOME}/tools/bin/sdkmanager" "platforms;android-29"
   - "${ANDROID_HOME}/tools/bin/sdkmanager" "build-tools;29.0.3"
   
