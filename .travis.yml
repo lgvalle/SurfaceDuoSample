@@ -22,13 +22,13 @@ before_install:
   - export ANDROID_HOME=$HOME/sdk
   # create empty cfg file to prevent sdkmanager warning message
   - mkdir -p $HOME/.android && touch $HOME/.android/repositories.cfg
+  - yes | "${ANDROID_HOME}/tools/bin/sdkmanager" "platforms;android-29"
+  - yes | "${ANDROID_HOME}/tools/bin/sdkmanager" "build-tools;29.0.3"
 
 install:
   # accept licenses for all available packages that have not already been accepted
   #- yes | sdkmanager --licenses >/dev/null
-  - mkdir -p $HOME/.android && touch $HOME/.android/repositories.cfg
-  - "${ANDROID_HOME}/tools/bin/sdkmanager" "platforms;android-29"
-  - "${ANDROID_HOME}/tools/bin/sdkmanager" "build-tools;29.0.3"
+  
   
 before_script:
   # set executable flag for gradle wrapper
