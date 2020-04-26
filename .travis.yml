@@ -26,8 +26,8 @@ before_install:
 install:
   # accept licenses for all available packages that have not already been accepted
   #- yes | sdkmanager --licenses >/dev/null
-  - "${ANDROID_HOME}/tools/bin/sdkmanager" "platforms;android-28"
-  - "${ANDROID_HOME}/tools/bin/sdkmanager" "build-tools;28.0.3"
+  - "${ANDROID_HOME}/tools/bin/sdkmanager" "platforms;android-29"
+  - "${ANDROID_HOME}/tools/bin/sdkmanager" "build-tools;29.0.3"
   
 before_script:
   # set executable flag for gradle wrapper
